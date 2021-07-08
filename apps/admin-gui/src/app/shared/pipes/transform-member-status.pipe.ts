@@ -10,7 +10,13 @@ export class TransformMemberStatusPipe implements PipeTransform {
       return 'ACTIVE'
     }
     if(memberStatus.toLowerCase() === 'invalid'  ||  (memberGroupStatus && memberStatus.toLowerCase() === 'invalid')){
+      return 'INCOMPLETE'
+    }
+    if(memberStatus.toLowerCase() === 'expired'  ||  (memberGroupStatus && memberStatus.toLowerCase() === 'expired')){
       return 'INACTIVE'
+    }
+    if(memberStatus.toLowerCase() === 'disabled'  ||  (memberGroupStatus && memberStatus.toLowerCase() === 'disabled')){
+      return 'ARCHIVED'
     }
     return memberStatus;
   }
