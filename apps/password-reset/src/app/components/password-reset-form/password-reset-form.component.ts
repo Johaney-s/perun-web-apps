@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+// calling static method of validators (Angular's problem, see https://github.com/typescript-eslint/typescript-eslint/issues/1929)
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiRequestConfigurationService, StoreService } from '@perun-web-apps/perun/services';
@@ -12,14 +14,6 @@ import { CustomValidators } from '@perun-web-apps/perun/utils';
   styleUrls: ['./password-reset-form.component.scss'],
 })
 export class PasswordResetFormComponent implements OnInit {
-  constructor(
-    private storeService: StoreService,
-    private translate: TranslateService,
-    private apiRequestConfiguration: ApiRequestConfigurationService,
-    private usersService: UsersManagerService,
-    private _formBuilder: FormBuilder
-  ) {}
-
   @Input()
   mode: string;
 
@@ -39,6 +33,14 @@ export class PasswordResetFormComponent implements OnInit {
   success = false;
   language = 'en';
   newPasswdForm: FormGroup;
+
+  constructor(
+    private storeService: StoreService,
+    private translate: TranslateService,
+    private apiRequestConfiguration: ApiRequestConfigurationService,
+    private usersService: UsersManagerService,
+    private _formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -60,14 +62,14 @@ export class PasswordResetFormComponent implements OnInit {
     this.loading = false;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.authWithoutToken) {
       this.usersService
         .changePasswordForLogin(
           this.login,
           this.namespace,
-          this.newPasswdForm.get('passwordCtrl').value
+          this.newPasswdForm.get('passwordCtrl').value as string
         )
         .subscribe(() => {
           this.success = true;
@@ -75,7 +77,10 @@ export class PasswordResetFormComponent implements OnInit {
         });
     } else {
       this.usersService
-        .changeNonAuthzPasswordByToken(this.token, this.newPasswdForm.get('passwordCtrl').value)
+        .changeNonAuthzPasswordByToken(
+          this.token,
+          this.newPasswdForm.get('passwordCtrl').value as string
+        )
         .subscribe(() => {
           this.success = true;
           this.loading = false;
