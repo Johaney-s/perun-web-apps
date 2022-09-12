@@ -11,6 +11,7 @@ import { ChangeGroupResourceAssigmentDialogComponent } from '@perun-web-apps/per
 export class GroupResourceStatusComponent {
   @Input() status = '';
   @Input() groupId: number;
+  @Input() groupName = '';
   @Input() resourceId: number;
   @Input() theme: string;
   @Input() failureCause: string;
