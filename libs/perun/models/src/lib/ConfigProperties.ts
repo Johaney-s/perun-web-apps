@@ -1,6 +1,6 @@
 import { SafeHtml } from '@angular/platform-browser';
 
-interface OidcClient {
+export interface OidcClient {
   oauth_authority: string;
   oauth_callback: string;
   oauth_client_id: string;
@@ -10,6 +10,7 @@ interface OidcClient {
   oauth_response_type: string;
   user_info_endpoint_url: string;
   filters: Record<string, string>;
+  oauth_offline_access_consent_prompt: boolean;
 }
 
 interface PerunTheme {
@@ -140,6 +141,7 @@ export interface PerunConfig {
   brandings?: Record<string, PerunConfig>;
   logo?: string;
   theme?: PerunTheme;
+  auto_service_access_redirect: boolean;
 
   // Admin gui specific
   // Required
@@ -149,7 +151,6 @@ export interface PerunConfig {
   profile_label_en?: string;
   allow_empty_sponsor_namespace?: boolean;
   member_profile_attributes_friendly_names?: string[];
-  skip_oidc?: boolean;
   groupNameSecondaryRegex?: string;
   groupNameErrorMessage?: string;
   display_warning?: boolean;
