@@ -166,13 +166,7 @@ export class SponsoredMembersListComponent implements OnChanges {
   }
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelected(
-      this.selection.selected.length,
-      this.filterValue,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.dataSource
-    );
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.dataSource);
   }
 
   masterToggle(): void {
@@ -197,12 +191,12 @@ export class SponsoredMembersListComponent implements OnChanges {
 
   resetPassword(sponsoredMember: MemberWithSponsors): void {
     this.loading = true;
-    const attUrns = (this.storeService.get('password_namespace_attributes') as string[]).map(
-      (urnString) => {
+    const attUrns = this.storeService
+      .getProperty('password_namespace_attributes')
+      .map((urnString) => {
         const urn = urnString.split(':');
         return urn[urn.length - 1];
-      }
-    );
+      });
     this.attributesManager.getLogins(sponsoredMember.member.userId).subscribe(
       (logins) => {
         const filteredLogins = logins.filter((login) =>

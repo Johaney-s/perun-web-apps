@@ -1,17 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
+import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import {
-  AuthService,
   NotificationStorageService,
-  NotificatorService,
   OtherApplicationsService,
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationHistoryDialogComponent } from '../components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -26,8 +23,8 @@ export class PerunNavComponent implements OnInit {
   principal: PerunPrincipal;
 
   logoutEnabled = true;
-  navTextColor = this.store.get('theme', 'nav_text_color') as string;
-  iconColor = this.store.get('theme', 'nav_icon_color') as string;
+  navTextColor = this.store.getProperty('theme').nav_text_color;
+  iconColor = this.store.getProperty('theme').nav_icon_color;
   profileLabel: string;
   profileUrl: string;
   logo: SafeHtml;
@@ -35,11 +32,7 @@ export class PerunNavComponent implements OnInit {
 
   constructor(
     private storeService: StoreService,
-    private authService: AuthService,
-    public authzResolverService: AuthzResolverService,
     private dialog: MatDialog,
-    private notificator: NotificatorService,
-    private translateService: TranslateService,
     private store: StoreService,
     private sanitizer: DomSanitizer,
     private notificationStorageService: NotificationStorageService,
@@ -47,10 +40,10 @@ export class PerunNavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isDevel = this.storeService.get('is_devel') as boolean;
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.get('logo') as string);
-    this.logoutEnabled = this.storeService.get('log_out_enabled') as boolean;
-    this.profileLabel = this.storeService.get('profile_label_en') as string;
+    this.isDevel = this.storeService.getProperty('is_devel');
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.getProperty('logo'));
+    this.logoutEnabled = this.storeService.getProperty('log_out_enabled');
+    this.profileLabel = this.storeService.getProperty('profile_label_en');
     this.profileUrl = this.otherApplicationService.getUrlForOtherApplication('profile');
   }
 

@@ -13,13 +13,15 @@
       matSortActive="id"
       matSortDirection="asc"
       matSortDisableClear>
-      <ng-container matColumnDef="select">
+      <ng-container
+        matColumnDef="select"
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length} as selected">
         <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             [aria-label]="checkboxLabel()"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [checked]="selection.hasValue() && selected.all"
+            [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
           </mat-checkbox>
         </th>
@@ -44,7 +46,9 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED.COMPONENTS.HOSTS_LIST.TABLE_HOST_NAME' | translate}}
         </th>
-        <td *matCellDef="let host" mat-cell>{{host.hostname}}</td>
+        <td *matCellDef="let host" mat-cell attr.data-cy="{{host.hostname | multiWordDataCy}}">
+          {{host.hostname}}
+        </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

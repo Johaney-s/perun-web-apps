@@ -5,7 +5,6 @@ import { GroupAddMemberDialogComponent } from './group-add-member-dialog/group-a
 import { VoAddMemberDialogComponent } from './vo-add-member-dialog/vo-add-member-dialog.component';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 export interface FailedCandidate {
@@ -65,9 +64,12 @@ export class AddMemberService {
     this.dialogRef.close(true);
   }
 
-  getCandidateWithError(candidate: MemberCandidate, error: HttpErrorResponse): FailedCandidate {
-    const e: RPCError = error.error as RPCError;
-    const msg: string = e.message.split(':').splice(1).join();
-    return { candidate: candidate, errorName: e.name, errorMsg: msg };
+  getCandidateWithError(candidate: MemberCandidate, error: RPCError): FailedCandidate {
+    if (String(error.type) === 'MfaPrivilegeException') {
+      return null;
+    } else {
+      const msg: string = error.message.split(':').splice(1).join();
+      return { candidate: candidate, errorName: error.name, errorMsg: msg };
+    }
   }
 }

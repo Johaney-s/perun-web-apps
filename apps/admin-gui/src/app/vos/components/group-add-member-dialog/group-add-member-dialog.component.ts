@@ -16,10 +16,10 @@ import {
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { getCandidateEmail } from '@perun-web-apps/perun/utils';
-import { HttpErrorResponse } from '@angular/common/http';
 import { AddMemberService, FailedCandidate } from '../add-member.service';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 export interface GroupAddMemberData {
   group: Group;
@@ -52,7 +52,7 @@ export class GroupAddMemberDialogComponent implements OnInit {
   attrNames: string[] = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL].concat(
     this.store.getLoginAttributeNames()
   );
-  languages: string[] = this.store.get('supported_languages') as string[];
+  languages: string[] = this.store.getProperty('supported_languages');
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: GroupAddMemberData,
@@ -95,6 +95,8 @@ export class GroupAddMemberDialogComponent implements OnInit {
     this.loading = true;
     if (this.selection.selected.length === 0) {
       if (this.failed.length !== 0) {
+        this.failed = this.failed.filter((failed) => failed !== null);
+        this.selection.clear();
         this.loading = false;
       } else {
         this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_ADD');
@@ -118,6 +120,8 @@ export class GroupAddMemberDialogComponent implements OnInit {
     this.loading = true;
     if (this.selection.selected.length === 0) {
       if (this.failed.length !== 0) {
+        this.failed = this.failed.filter((failed) => failed !== null);
+        this.selection.clear();
         this.loading = false;
       } else {
         this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE');
@@ -146,28 +150,28 @@ export class GroupAddMemberDialogComponent implements OnInit {
         candidate: this.addMemberService.createCandidate(candidate.candidate),
         groups: [this.addMemberService.getFormattedGroup(this.data.group)],
       })
-      .subscribe(
-        (member) => {
+      .subscribe({
+        next: (member) => {
           this.membersManagerService.validateMemberAsync(member.id).subscribe();
           this.add();
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.add();
-        }
-      );
+        },
+      });
   }
 
   private addMember(candidate: MemberCandidate): void {
-    this.groupService.addMembers(this.data.group.id, [candidate.member.id]).subscribe(
-      () => {
+    this.groupService.addMembers(this.data.group.id, [candidate.member.id]).subscribe({
+      next: () => {
         this.add();
       },
-      (error: HttpErrorResponse) => {
+      error: (error: RPCError) => {
         this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
         this.add();
-      }
-    );
+      },
+    });
   }
 
   private addUser(candidate: MemberCandidate): void {
@@ -177,16 +181,16 @@ export class GroupAddMemberDialogComponent implements OnInit {
         user: candidate.richUser.id,
         groups: [this.addMemberService.getFormattedGroup(this.data.group)],
       })
-      .subscribe(
-        (member) => {
+      .subscribe({
+        next: (member) => {
           this.membersManagerService.validateMemberAsync(member.id).subscribe();
           this.add();
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.add();
-        }
-      );
+        },
+      });
   }
 
   private inviteCandidate(candidate: MemberCandidate, lang: string): void {
@@ -197,15 +201,15 @@ export class GroupAddMemberDialogComponent implements OnInit {
         this.data.group.voId,
         this.data.group.id
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.invite(lang);
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.invite(lang);
-        }
-      );
+        },
+      });
   }
 
   private inviteUser(candidate: MemberCandidate, lang: string): void {
@@ -215,14 +219,14 @@ export class GroupAddMemberDialogComponent implements OnInit {
         this.data.group.voId,
         this.data.group.id
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.invite(lang);
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.invite(lang);
-        }
-      );
+        },
+      });
   }
 }

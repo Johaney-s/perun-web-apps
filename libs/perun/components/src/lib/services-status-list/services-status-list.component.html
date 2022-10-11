@@ -15,13 +15,15 @@
       matSortDirection="asc"
       matSortDisableClear
       class="w-100">
-      <ng-container matColumnDef="select">
+      <ng-container
+        matColumnDef="select"
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length} as selected">
         <th mat-header-cell *matHeaderCellDef class="align-checkbox">
           <mat-checkbox
             color="primary"
             (change)="$event ? masterToggle() : null; this.selectionChange.emit()"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [checked]="selection.hasValue() && selected.all"
+            [indeterminate]="selection.hasValue() && !selected.all"
             [aria-label]="checkboxLabel()">
           </mat-checkbox>
         </th>
@@ -49,7 +51,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.SERVICE_NAME' | translate}}
         </th>
-        <td mat-cell *matCellDef="let serviceState">{{serviceState.service.name}}</td>
+        <td mat-cell *matCellDef="let serviceState" attr.data-cy="{{serviceState.service.name}}">
+          {{serviceState.service.name}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="status">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>

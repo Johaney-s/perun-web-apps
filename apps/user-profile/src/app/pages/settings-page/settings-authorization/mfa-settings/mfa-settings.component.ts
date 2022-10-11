@@ -83,7 +83,7 @@ export class MfaSettingsComponent implements OnInit {
       }
     } else {
       // load enforce_mfa from attribute
-      const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute') as string;
+      const enforceMfaAttributeName = this.store.getProperty('mfa').enforce_mfa_attribute;
       this.attributesManagerService
         .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
         .subscribe({
@@ -371,7 +371,7 @@ export class MfaSettingsComponent implements OnInit {
     this.oauthService.logOut(true);
     sessionStorage.setItem('auth:redirect', location.pathname);
     sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-    this.authService.loadConfigData();
+    this.authService.loadOidcConfigData();
     void this.oauthService.loadDiscoveryDocumentAndLogin();
   }
 

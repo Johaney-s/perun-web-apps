@@ -10,10 +10,10 @@ import { ApiRequestConfigurationService, StoreService } from '@perun-web-apps/pe
 import { SelectionModel } from '@angular/cdk/collections';
 import { getCandidateEmail } from '@perun-web-apps/perun/utils';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { HttpErrorResponse } from '@angular/common/http';
 import { AddMemberService, FailedCandidate } from '../add-member.service';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 export interface VoAddMemberData {
   voId: number;
@@ -43,7 +43,7 @@ export class VoAddMemberDialogComponent {
   attrNames: string[] = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL].concat(
     this.store.getLoginAttributeNames()
   );
-  languages: string[] = this.store.get('supported_languages') as string[];
+  languages: string[] = this.store.getProperty('supported_languages');
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: VoAddMemberData,
@@ -63,6 +63,8 @@ export class VoAddMemberDialogComponent {
     this.loading = true;
     if (this.selection.selected.length === 0) {
       if (this.failed.length !== 0) {
+        this.failed = this.failed.filter((failed) => failed !== null);
+        this.selection.clear();
         this.loading = false;
       } else {
         this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_ADD');
@@ -84,6 +86,8 @@ export class VoAddMemberDialogComponent {
     this.loading = true;
     if (this.selection.selected.length === 0) {
       if (this.failed.length !== 0) {
+        this.failed = this.failed.filter((failed) => failed !== null);
+        this.selection.clear();
         this.loading = false;
       } else {
         this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE');
@@ -111,58 +115,58 @@ export class VoAddMemberDialogComponent {
         vo: this.data.voId,
         candidate: this.addMemberService.createCandidate(candidate.candidate),
       })
-      .subscribe(
-        (member) => {
+      .subscribe({
+        next: (member) => {
           this.membersManagerService.validateMemberAsync(member.id).subscribe();
           this.add();
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.add();
-        }
-      );
+        },
+      });
   }
 
   private addUser(candidate: MemberCandidate): void {
     this.membersManagerService
       .createMemberForUser({ vo: this.data.voId, user: candidate.richUser.id })
-      .subscribe(
-        (member) => {
+      .subscribe({
+        next: (member) => {
           this.membersManagerService.validateMemberAsync(member.id).subscribe();
           this.add();
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.add();
-        }
-      );
+        },
+      });
   }
 
   private inviteCandidate(candidate: MemberCandidate, lang: string): void {
     this.registrarManager
       .sendInvitation(getCandidateEmail(candidate.candidate), lang, this.data.voId)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.invite(lang);
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.invite(lang);
-        }
-      );
+        },
+      });
   }
 
   private inviteUser(candidate: MemberCandidate, lang: string): void {
     this.registrarManager
       .sendInvitationToExistingUser(candidate.richUser.id, this.data.voId)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.invite(lang);
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
           this.invite(lang);
-        }
-      );
+        },
+      });
   }
 }

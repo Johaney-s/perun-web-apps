@@ -55,9 +55,13 @@ export class VoSettingsNotificationsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
+    this.refresh();
+  }
+
+  refresh(): void {
+    this.loading = true;
     this.registrarService.getVoApplicationForm(this.vo.id).subscribe((form) => {
       this.applicationForm = form;
       this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe((mails) => {
@@ -84,7 +88,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   }
 
   add(): void {
-    const supportedLangs = this.store.get('supported_languages') as string[];
+    const supportedLangs = this.store.getProperty('supported_languages');
     const applicationMail: ApplicationMail = createNewApplicationMail(supportedLangs);
     applicationMail.formId = this.applicationForm.id;
 

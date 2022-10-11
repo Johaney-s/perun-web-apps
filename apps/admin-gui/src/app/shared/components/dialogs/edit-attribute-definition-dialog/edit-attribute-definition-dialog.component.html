@@ -7,6 +7,7 @@
         <mat-form-field>
           <input
             matInput
+            data-cy="display-name-input"
             formControlName="name"
             placeholder="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
             required />
@@ -31,6 +32,13 @@
 
       <perun-web-apps-attribute-unique-toggle [attDef]="attDef">
       </perun-web-apps-attribute-unique-toggle>
+
+      <perun-web-apps-attribute-critical-operations-toggles
+        [readOperation]="initReadOperations"
+        [writeOperation]="initWriteOperations"
+        (readOperationChanged)="finalReadOperations=$event"
+        (writeOperationChanged)="finalWriteOperations=$event">
+      </perun-web-apps-attribute-critical-operations-toggles>
 
       <perun-web-apps-attribute-rights-tab-group
         [attDef]="attDef"

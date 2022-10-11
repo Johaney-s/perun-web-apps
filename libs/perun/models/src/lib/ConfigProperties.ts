@@ -1,6 +1,4 @@
-import { SafeHtml } from '@angular/platform-browser';
-
-interface OidcClient {
+export interface OidcClient {
   oauth_authority: string;
   oauth_callback: string;
   oauth_client_id: string;
@@ -10,6 +8,7 @@ interface OidcClient {
   oauth_response_type: string;
   user_info_endpoint_url: string;
   filters: Record<string, string>;
+  oauth_offline_access_consent_prompt: boolean;
 }
 
 interface PerunTheme {
@@ -56,12 +55,12 @@ interface PerunTheme {
   service_color?: string;
 }
 
-interface CopyrightItem {
+export interface CopyrightItem {
   name: string;
   url: string;
 }
 
-interface FooterElement {
+export interface FooterElement {
   logo: string;
   icon?: string;
   dialog?: string;
@@ -71,7 +70,7 @@ interface FooterElement {
   label_cs?: string;
 }
 
-interface FooterColumn {
+export interface FooterColumn {
   title_en: string;
   title_cs?: string;
   logos?: boolean;
@@ -81,6 +80,8 @@ interface FooterColumn {
 interface Footer {
   columns: FooterColumn[];
   copyrightItems: CopyrightItem[];
+  github_releases?: string;
+  github_backend_releases?: string;
 }
 
 interface DocumentTitle {
@@ -140,6 +141,7 @@ export interface PerunConfig {
   brandings?: Record<string, PerunConfig>;
   logo?: string;
   theme?: PerunTheme;
+  auto_service_access_redirect: boolean;
 
   // Admin gui specific
   // Required
@@ -149,12 +151,14 @@ export interface PerunConfig {
   profile_label_en?: string;
   allow_empty_sponsor_namespace?: boolean;
   member_profile_attributes_friendly_names?: string[];
-  skip_oidc?: boolean;
   groupNameSecondaryRegex?: string;
   groupNameErrorMessage?: string;
   display_warning?: boolean;
   warning_message?: string;
   logo_padding?: string;
+  group_name_error_message?: string;
+  group_name_secondary_regex?: string;
+  link_to_admin_gui_by_roles?: string[];
 
   // User profile specific
   // Required
@@ -179,9 +183,9 @@ export interface PerunConfig {
 
   // Password reset specific
   // Optional
-  password_requirements_help_en?: string;
-  password_requirements_help_cs?: string;
-  password_reset_logo?: SafeHtml;
+  password_requirements_help?: string[];
+  password_requirements_help_cs?: string[];
+  password_reset_logo?: string;
 
   //Consolidator + Linker
   application: string;

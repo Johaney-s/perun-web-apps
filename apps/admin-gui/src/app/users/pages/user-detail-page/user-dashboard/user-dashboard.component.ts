@@ -37,6 +37,7 @@ export class UserDashboardComponent implements OnInit {
     'TOPGROUPCREATOR',
     'VOOBSERVER',
     'GROUPOBSERVER',
+    'GROUPMEMBERSHIPMANAGER',
     'FACILITYOBSERVER',
     'RESOURCEOBSERVER',
   ];
@@ -139,6 +140,6 @@ export class UserDashboardComponent implements OnInit {
 
   private getUserProfile(): void {
     this.userProfileUrl = this.otherApplicationService.getUrlForOtherApplication('profile');
-    this.userProfileName = this.storeService.get('profile_label_en') as string;
+    this.userProfileName = this.storeService.getProperty('profile_label_en');
   }
 }

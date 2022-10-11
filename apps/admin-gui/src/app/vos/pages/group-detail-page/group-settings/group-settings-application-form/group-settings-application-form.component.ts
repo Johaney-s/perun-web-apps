@@ -21,7 +21,6 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -90,13 +89,12 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
           () => (this.loading = false)
         );
       },
-      (error: HttpErrorResponse) => {
-        const e = error.error as RPCError;
-        if (e.name === 'FormNotExistsException') {
+      (error: RPCError) => {
+        if (error.name === 'FormNotExistsException') {
           this.noApplicationForm = true;
           this.loading = false;
         } else {
-          this.notificator.showRPCError(e);
+          this.notificator.showRPCError(error);
         }
       }
     );
@@ -203,11 +201,14 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   updateFormItems(): void {
     this.loading = true;
     this.refreshApplicationForm = true;
-    this.registrarManager.getFormItemsForGroup(this.group.id).subscribe((formItems) => {
-      this.applicationFormItems = formItems;
-      this.itemsChanged = false;
-      this.refreshApplicationForm = false;
-      this.loading = false;
+    this.registrarManager.getFormItemsForGroup(this.group.id).subscribe({
+      next: (formItems) => {
+        this.applicationFormItems = formItems;
+        this.itemsChanged = false;
+        this.refreshApplicationForm = false;
+        this.loading = false;
+      },
+      error: () => (this.loading = false),
     });
   }
 
