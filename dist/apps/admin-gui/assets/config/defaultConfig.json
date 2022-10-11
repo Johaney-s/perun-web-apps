@@ -12,6 +12,7 @@
   "display_warning": false,
   "warning_message": "BETA version of new Perun GUI. It doesn’t contain all functionality. Please report any issues to support mail below.",
   "auto_auth_redirect": true,
+  "auto_service_access_redirect": false,
   "oidc_client": {
     "oauth_authority": "",
     "oauth_callback": "http://localhost:4200/api-callback",
@@ -21,6 +22,9 @@
     "oauth_scopes": "openid profile perun_api perun_admin offline_access",
     "oauth_response_type": "code",
     "oauth_offline_access_consent_prompt": true
+  },
+  "mfa": {
+    "url_en": "https://mfa.id.muni.cz/"
   },
   "login_namespace_attributes": [
     "urn:perun:user:attribute-def:def:login-namespace:einfra",
@@ -50,7 +54,6 @@
     "einfra:<p>Password must:</p><ul><li>contain only printable (non-accented) characters</li><li>be at least 10 characters long</li><li>consist of at least 3 of 4 character groups:<ul><li>lower-case letters</li><li>upper-case letters</li><li>digits</li><li>special characters</li></ul></li></ul>",
     "vsup:<p>Password requirements:</p><ul><li>the minimum password length is 8 characters</li><li>must contain characters of at least three sets of characters</li><li>character sets are: [a-z], [A-Z], [0-9], [!#%&()[]*+,./:;<=>?@^_&#96;&#123;&#125;&#124;~-]</li><li>letters must not contain diacritics, the space is allowed</li><li>may not include your name, surname, personal number or username</li></ul>"
   ],
-  "skip_oidc": false,
   "group_name_secondary_regex": "^[-a-zA-Z.0-9_ ]+$",
   "group_name_error_message": "Name cannot be empty and can contain only characters a-z, A-Z, numbers, spaces, dots, '_' and '-'",
   "enforce_consents": false,
@@ -111,7 +114,8 @@
         "url": "https://www.cerit-sc.cz/"
       }
     ],
-    "github_releases": "https://www.github.com/CESNET/perun-web-apps/releases/"
+    "github_releases": "https://www.github.com/CESNET/perun-web-apps/releases/",
+    "github_backend_releases": "https://www.github.com/CESNET/perun/releases/"
   },
   "log_out_enabled": true,
   "profile_label_en": "Profile",
