@@ -98,18 +98,6 @@
     "NO_MEMBERSHIPS": "Žádné výsledky nesplňují zadané vyhledávací parametry.",
     "EXTEND": "Prodloužit členství"
   },
-  "SSH_KEYS": {
-    "SSH_KEYS_TITLE": "SSH klíče",
-    "SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů.",
-    "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčů",
-    "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na účet root.",
-    "COPY_TOOLTIP": "Zkopírovat klíč",
-    "REMOVE_TOOLTIP": "Odstranit",
-    "NEW_KEY": "Nový klíč",
-    "REMOVE_KEY": "Odstranit",
-    "REMOVE_DIALOG_TITLE": "Odstranit SSH klíč",
-    "REMOVE_DIALOG_DESCRIPTION": "Vámi vybrané SSH klíče budou odstraněny"
-  },
   "SAMBA_PASSWORD": {
     "TITLE": "Heslo pro službu SAMBA",
     "INPUT_PLACEHOLDER": "Zadejte nové heslo",
@@ -145,24 +133,9 @@
     "GENERATE": "Vygenerovat",
     "HEADER_COLUMN":"Popis"
   },
-  "DATA_QUOTAS": {
-    "TITLE": "Kvóty dat",
-    "FILTER": "Filtrovat kvóty dat dle jména organizace",
-    "QUOTA": "Datová kvóta: ",
-    "CHANGE": "Změnit",
-    "QUOTA_INFO": "Kvóty dat používají \"soft limit : hard limit\" notaci a jsou vázány na specifický objem dat.",
-    "NO_QUOTAS": "Nebyly nalezeny žádné služby, kde by bylo možné zažádat o změnu kvóty."
-  },
-  "OPT_OUT_MAILING_LISTS": {
-    "TITLE": "Vyřazení ze seznamu adresátů",
-    "FILTER": "Filtrovat seznamy adresátů dle jména organizace",
-    "OPT_OUT_LABEL": "Vyřadit mě z adresátů",
-    "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci",
-    "SUBSCRIBED": "Už nejste vyřazen z adresátů  ",
-    "UNSUBSCRIBED": "Nyní jste vyřazen z adresátů  "
-  },
   "AUTHENTICATION": {
     "TITLE": "Bezpečnostní obrázek",
+    "TITLE_TEXT": "Bezpečnostní text",
     "MFA": "Vícefázové ověření",
     "MFA_TOGGLE": "Zapnout vícefázové ověření pro všechny služby",
     "MFA_DISABLED": "Potřebujete mít alespoň jeden aktivní MFA token.",
@@ -172,9 +145,16 @@
     "ANTI_PHISHING_INFO": "Tento bezpečnostní obrázek se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",
     "DELETE_IMG_DIALOG_TITLE": "Vymazat bezpečnostní obrázek",
     "DELETE_IMG_DIALOG_DESC": "Váš bezpečnostní obrázek bude odstraněn a nebude použit během autentizace.",
+    "NEW_TEXT": "Nový text",
+    "DELETE_TEXT": "Vymazat text",
+    "ANTI_PHISHING_INFO_TEXT": "Tento bezpečnostní text se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",
+    "DELETE_TEXT_DIALOG_TITLE": "Vymazat bezpečnostní text",
+    "DELETE_TEXT_DIALOG_DESC": "Váš bezpečnostní text bude odstraněn a nebude použit během autentizace.",
     "MFA_INFO": "Spravovat moje prostředky vícefázového ověření (MFA)",
     "SAVE_IMG_SUCCESS": "Bezpečnostní obrázek byl změněn.",
-    "REMOVE_IMG_SUCCESS": "Bezpečnostní obrázek byl odebrán."
+    "REMOVE_IMG_SUCCESS": "Bezpečnostní obrázek byl odebrán.",
+    "SAVE_TEXT_SUCCESS": "Bezpečnostní text byl změněn.",
+    "REMOVE_TEXT_SUCCESS": "Bezpečnostní text byl odebrán."
   },
   "LOCAL_ACCOUNT": {
     "TITLE": "Lokální účet",
@@ -223,16 +203,6 @@
       "CLOSE": "Close",
       "COPY": "Zkopírovat do schránky"
     },
-    "REQUEST_DATA_QUOTA_CHANGE": {
-      "TITLE": "Žádost o změnu datové kvóty",
-      "RESOURCE": "Zdroj",
-      "CURRENT_QUOTA": "Momentální kvóta",
-      "REQUESTED_QUOTA": "Požadovaná kvóta",
-      "REASON": "Důvod",
-      "SEND": "Poslat",
-      "CANCEL": "Zrušit",
-      "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
-    },
     "SHOW_SSH": {
       "CLOSE": "Zrušit"
     },
@@ -245,6 +215,12 @@
       "ADD": "Uložit obrázek",
       "IMG_TOO_LONG": "Zvolený obrázek se nepodařilo zmenšit na cílovou velikost. Prosím zvolte jiný obrázek.",
       "DELAY_INFO": "Změna bezpečnostního obrázku se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
+    },
+    "ADD_AUTH_TEXT": {
+      "TITLE": "Změna bezpečnostního textu",
+      "CANCEL": "Zrušit",
+      "ADD": "Uložit text",
+      "DELAY_INFO": "Změna bezpečnostního textu se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
     },
     "ACTIVATE_LOCAL_ACCOUNT": {
       "TITLE": "Aktivovat účet",
@@ -377,6 +353,7 @@
         "MFA_REQUIRED_DIALOG": {
           "TITLE": "Vyžadována step-up authentizace",
           "INFO": "Pro vykonání této akce musíte provést step-up authentizaci.",
+          "INFO_ROLE": "Pro přihlášení musíte provést step-up authentizaci.",
           "CANCEL": "Zrušit",
           "STEP_UP": "Step-up authentizace"
         },
@@ -431,6 +408,44 @@
           "REVOKE_CONSENT_BUTTON": "Odmítnout souhlas",
           "REJECT_CONSENT_BUTTON": "Odvolat souhlas",
           "GRANT_CONSENT_BUTTON": "Udělit souhlas"
+        },
+        "DATA_QUOTAS": {
+          "TITLE": "Kvóty dat",
+          "FILTER": "Filtrovat kvóty dat dle jména organizace",
+          "QUOTA": "Datová kvóta: ",
+          "CHANGE": "Změnit",
+          "QUOTA_INFO": "Kvóty dat používají \"soft limit : hard limit\" notaci a jsou vázány na specifický objem dat.",
+          "NO_QUOTAS": "Nebyly nalezeny žádné služby, kde by bylo možné zažádat o změnu kvóty."
+        },
+        "OPT_OUT_MAILING_LISTS": {
+          "TITLE": "Vyřazení ze seznamu adresátů",
+          "FILTER": "Filtrovat seznamy adresátů dle jména organizace",
+          "OPT_OUT_LABEL": "Vyřadit mě z adresátů",
+          "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci",
+          "SUBSCRIBED": "Už nejste vyřazen z adresátů  ",
+          "UNSUBSCRIBED": "Nyní jste vyřazen z adresátů  "
+        },
+        "REQUEST_DATA_QUOTA_CHANGE": {
+          "TITLE": "Žádost o změnu datové kvóty",
+          "RESOURCE": "Zdroj",
+          "CURRENT_QUOTA": "Momentální kvóta",
+          "REQUESTED_QUOTA": "Požadovaná kvóta",
+          "REASON": "Důvod",
+          "SEND": "Poslat",
+          "CANCEL": "Zrušit",
+          "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
+        },
+        "SSH_KEYS": {
+          "SSH_KEYS_TITLE": "SSH klíče",
+          "SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů.",
+          "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčů",
+          "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na účet root.",
+          "COPY_TOOLTIP": "Zkopírovat klíč",
+          "REMOVE_TOOLTIP": "Odstranit",
+          "NEW_KEY": "Nový klíč",
+          "REMOVE_KEY": "Odstranit",
+          "REMOVE_DIALOG_TITLE": "Odstranit SSH klíč",
+          "REMOVE_DIALOG_DESCRIPTION": "Vámi vybrané SSH klíče budou odstraněny"
         }
       },
       "ORGANIZATIONS": {
@@ -449,6 +464,12 @@
       "SERVICES_CONFIGURATIONS": {
         "ADD": "Přidat",
         "SAVE": "Uložit"
+      },
+      "CHECKBOX_LABEL": {
+        "SELECT_ALL": "Označit vše",
+        "DESELECT_ALL": "Odebrat vše",
+        "SELECT_ROW": "Označit položku {{ name }}",
+        "DESELECT_ROW": "Odebrat položku {{ name }}"
       }
     },
     "LANGUAGES": {
