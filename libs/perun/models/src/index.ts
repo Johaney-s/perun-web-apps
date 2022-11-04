@@ -12,3 +12,6 @@ export * from './lib/GroupWithStatus';
 export * from './lib/ResourceWithStatus';
 export * from './lib/AttributeForm';
 export * from './lib/ConfigProperties';
+export * from './lib/DynamicDataSource';
+export * from './lib/UserWithConsentStatus';
+export * from './lib/AuthPrivilege';

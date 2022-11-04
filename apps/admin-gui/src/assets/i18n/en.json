@@ -74,6 +74,13 @@
     "CREATE": "Create",
     "DELETE": "Delete"
   },
+  "CONSENTS": {
+    "STATUS": "Consent status",
+    "STATUS_GRANTED": "Granted",
+    "STATUS_REVOKED": "Rejected",
+    "STATUS_UNSIGNED": "Pending",
+    "SELECTION_ALL": "All"
+  },
   "FACILITY_CONFIGURATION": {
     "TITLE": "Configure facility",
     "OWNERS": "Owners",
@@ -968,9 +975,14 @@
       "RESOURCES": "Resources",
       "ASSOCIATED_USERS": "Account managers",
       "AUTHENTICATION": "Authentication",
+      "LOGINS": "Logins",
+      "CERTIFICATES": "Certificates",
+      "SSH_KEYS": "SSH Keys",
       "ENTITY": "User",
       "USER_TYPE": "User type",
-      "ACCOUNTS": "Accounts"
+      "ACCOUNTS": "Accounts",
+      "MAILING_LISTS": "Mailing lists opt-out",
+      "DATA_QUOTAS": "Data quotas"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -1409,11 +1421,13 @@
       "APPDETAILURLKRB_DESCRIPTION": "link for Kerberos authentication",
       "APPDETAILURLFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "APPDETAILURLCERT_DESCRIPTION": "link for personal certificate authentication",
+      "APPDETAILURLNEWGUI_DESCRIPTION": "link for new admin GUI",
       "PERUN_LINKS_ADMINISTRATOR_DESCRIPTION": "Used to navigate administrators to the administrative GUI of Perun. Can be used for users to locate user detail too.",
       "PERUNGUIURL_DESCRIPTION": "link to administrative GUI. Please make sure you set \"Registrar URL\" setting of your organization/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
       "PERUNGUIURLKRB_DESCRIPTION": "link for Kerberos authentication",
       "PERUNGUIURLFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "PERUNGUIURLCERT_DESCRIPTION": "link for personal certificate authentication",
+      "PERUNGUINEWGUI_DESCRIPTION": "link for new admin GUI",
       "USER_INVITATIONS_DESCRIPTION": "Following tags can be used on user invitation template",
       "USER_INVITATIONS_VONAME_DESCRIPTION": "name of organization to invite user into",
       "USER_INVITATIONS_GROUPNAME_DESCRIPTION": "name of Group to invite user into",
@@ -1593,7 +1607,9 @@
       "CANCEL": "Cancel",
       "CONFIRM": "Submit",
       "SHOW_KEYS": "Show keys",
-      "SERVICES": "Dependent services"
+      "SERVICES": "Dependent services",
+      "URN": "Full urn",
+      "URN_TOOLTIP": "Copy full urn"
     },
     "REMOVE_DESTINATIONS": {
       "TITLE": "Remove destination from service",
@@ -2104,6 +2120,7 @@
       "SUCCESS_MEMBER": "The service account has been created successfully",
       "SUCCESS_PWD": "Password has been set successfully",
       "NEXT": "Next",
+      "NEXT_BUTTON_DISABLED_TOOLTIP": "Add selected members or unselect these members",
       "BACK": "Back",
       "PASSWORD_NOT_SUPPORTED": "The selected namespace does not support setting of the password.",
       "EMAIL_INVALID": "Enter a valid email address",
@@ -2111,7 +2128,10 @@
       "MINIMAL_USERS": "At least 1 user has to be assigned.",
       "SET_CREDENTIALS": "Set credentials",
       "PASSWORD_RANDOM": "Set password later",
-      "ENTER_PASSWORD": "Set password now"
+      "ENTER_PASSWORD": "Set password now",
+      "SPONSOR": "Sponsor",
+      "MANAGE_LIFECYCLE_INFO": "Service account has by default the same lifecycle as a standard user account. You can manage this lifecycle by sponsoring this service account.",
+      "CREATE_AND_SPONSOR": "Create & sponsor"
     },
     "SET_LOGIN": {
       "TITLE": "Add login and password",
@@ -2161,6 +2181,27 @@
       "CANCEL_BUTTON": "Cancel",
       "DISABLE_BUTTON": "Stop enforcing",
       "ENFORCE_BUTTON": "Enforce"
+    },
+    "ADD_SSH": {
+      "TITLE": "Add new ssh key",
+      "INPUT_PLACEHOLDER": "Begins with 'ssh-rsa', 'ssh-dss', 'sk-ssh-ed25519', 'sk-ecdsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' or 'ecdsa-sha2-nistp521'.",
+      "INVALID_TYPE": "Invalid value given. Your key should have one of the following types: \n\tssh-ed25519\n\tssh-ed25519-cert-v01@openssh.com\n\tsk-ssh-ed25519@openssh.com\n\tsk-ssh-ed25519-cert-v01@openssh.com\n\tssh-rsa\n\tssh-dss\n\tecdsa-sha2-nistp256\n\tecdsa-sha2-nistp384\n\tecdsa-sha2-nistp521\n\tsk-ecdsa-sha2-nistp256@openssh.com\n\tssh-rsa-cert-v01@openssh.com\n\tssh-dss-cert-v01@openssh.com\n\tecdsa-sha2-nistp256-cert-v01@openssh.com\n\tecdsa-sha2-nistp384-cert-v01@openssh.com\n\tecdsa-sha2-nistp521-cert-v01@openssh.com\n\tsk-ecdsa-sha2-nistp256-cert-v01@openssh.com",
+      "CANCEL": "Cancel",
+      "ADD": "Add"
+    },
+    "REMOVE_STRING_VALUE": {
+      "ASK": "Are you sure you want to continue?",
+      "CANCEL": "Cancel",
+      "REMOVE": "Remove"
+    },
+    "SHOW_SSH": {
+      "CLOSE": "Cancel"
+    },
+    "ADD_ROLE": {
+      "TITLE": "Add role",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Role {{role}} was successfully added"
     }
   },
   "MEMBERS_LIST": {
@@ -2405,9 +2446,13 @@
         "REMOVE": "Disconnect",
         "NO_ASSOCIATED_USERS": "No accounts connected."
       },
-      "AUTHENTICATION": {
-        "TITLE": "Authentication",
+      "LOGINS": {
+        "TITLE": "Logins",
         "ADD": "Add"
+      },
+      "CERTIFICATES": {
+        "TITLE": "Certificates",
+        "SAVE": "Save"
       },
       "FACILITY_ATTRIBUTES": {
         "TITLE": "Facility attributes"
@@ -2553,6 +2598,11 @@
   },
   "ROLES": {
     "TITLE": "Roles",
+    "ADD": "Add role",
+    "REMOVE": "Remove role",
+    "REMOVE_DESC": "Following role will be removed",
+    "REMOVE_SUCCESS": "Role {{ role}} was successfully removed",
+    "REMOVE_DISABLED_TOOLTIP": "You don't have permission to remove selected role",
     "NO_ROLES": "No roles found",
     "VOADMIN": "Organization admin",
     "VOADMIN_VOS_SELF": "Organizations you are manager of",
@@ -2585,6 +2635,9 @@
     "FACILITYADMIN_FACILITIES_GROUP": "Facilities where group members are managers",
     "FACILITYOBSERVER": "Facility observer",
     "FACILITYOBSERVER_FACILITIES": "Facilities you are observer of",
+    "FACILITYOBSERVER_FACILITIES_SELF": "Facilities you are observer of",
+    "FACILITYOBSERVER_FACILITIES_USER": "Facilities user is observer of",
+    "FACILITYOBSERVER_FACILITIES_GROUP": "Facilities where group members are observers",
     "TRUSTEDFACILITYADMIN": "Trusted facility admin",
     "TRUSTEDFACILITYADMIN_VOS_SELF": "Virtual organizations you are trusted facility admin in",
     "TRUSTEDFACILITYADMIN_VOS_USER": "Virtual organizations user is trusted facility admin in",
@@ -2624,7 +2677,9 @@
     "SERVICEUSER": "Service user",
     "CABINETADMIN": "Cabinet admin",
     "MEMBERSHIP": "Membership",
-    "AUDITCONSUMERADMIN": "Audit consumer admin"
+    "AUDITCONSUMERADMIN": "Audit consumer admin",
+    "PERUNADMIN": "Perun admin",
+    "PERUNOBSERVER": "Perun observer"
   },
   "SHARED_LIB": {
     "PERUN": {
@@ -2925,6 +2980,7 @@
         "MFA_REQUIRED_DIALOG": {
           "TITLE": "Step-up authentication required",
           "INFO": "To perform this action you need to execute step-up authentication.",
+          "INFO_ROLE": "To log in you need to execute step-up authentication.",
           "CANCEL": "Cancel",
           "STEP_UP": "Step-up authentication"
         },
@@ -2995,6 +3051,49 @@
           "READ": "READ operations critical",
           "WRITE": "WRITE operations critical",
           "INFO": "All operations of the selected type (READ/WRITE) for this attribute will require multi-factor authentication for objects that are marked as critical."
+        },
+        "DATA_QUOTAS": {
+          "TITLE": "Data quotas",
+          "FILTER": "Filter data quotas by organization's name",
+          "QUOTA": "Data quota: ",
+          "CHANGE": "Change",
+          "QUOTA_INFO": "Quotas are using \"soft limit : hard limit\" notation and are bound to specific volume.",
+          "NO_QUOTAS": "No assigned data quotas"
+        },
+        "OPT_OUT_MAILING_LISTS": {
+          "TITLE": "Opt out mailing lists",
+          "FILTER": "Filter opt out mailing lists by organization's name",
+          "OPT_OUT_LABEL": "Exclude me from mailing list",
+          "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization",
+          "SUBSCRIBED": "You are no longer excluded from the mailing list of ",
+          "UNSUBSCRIBED": "You are now excluded from the mailing list of "
+        },
+        "REQUEST_DATA_QUOTA_CHANGE": {
+          "TITLE": "Data quota change request",
+          "RESOURCE": "Resource",
+          "CURRENT_QUOTA": "Current quota",
+          "REQUESTED_QUOTA": "Requested quota",
+          "REASON": "Reason",
+          "SEND": "Send",
+          "CANCEL": "Cancel",
+          "SUCCESS": "Request for changing the data quota has been sent"
+        },
+        "SSH_KEYS": {
+          "SSH_KEYS_TITLE": "SSH keys",
+          "SSH_KEYS_DESCRIPTION": "List of your ssh keys.",
+          "ADMIN_SSH_KEYS_TITLE": "Admin SSH keys",
+          "ADMIN_SSH_KEYS_DESCRIPTION": "List of your ssh keys for root access.",
+          "NEW_KEY": "Add new key",
+          "COPY_TOOLTIP": "Copy to clipboard",
+          "REMOVE_TOOLTIP": "Remove",
+          "REMOVE_KEY": "Remove selected key",
+          "REMOVE_DIALOG_TITLE": "Remove ssh key",
+          "REMOVE_DIALOG_DESCRIPTION": "Selected ssh key will be removed."
+        },
+        "ROLE_SEARCH_SELECT": {
+          "SELECT_ROLE": "Select role",
+          "FIND_ROLE": "Find role...",
+          "NO_ROLE_FOUND": "No matching role found"
         }
       },
       "ORGANIZATIONS": {
@@ -3013,6 +3112,12 @@
       "SERVICES_CONFIGURATIONS": {
         "ADD": "Add",
         "SAVE": "Save"
+      },
+      "CHECKBOX_LABEL": {
+        "SELECT_ALL": "Select all",
+        "DESELECT_ALL": "Deselect all",
+        "SELECT_ROW": "Select item {{ name }}",
+        "DESELECT_ROW": "Deselect item {{ name }}"
       }
     },
     "LANGUAGES": {

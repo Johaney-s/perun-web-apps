@@ -99,6 +99,14 @@ import { AttributeRightsItemComponent } from './attribute-rights-item/attribute-
 import { AttributeRightsTabGroupComponent } from './attribute-rights-tab-group/attribute-rights-tab-group.component';
 import { AttributeUniqueToggleComponent } from './attribute-unique-toggle/attribute-unique-toggle.component';
 import { AttributeCriticalOperationsTogglesComponent } from './attribute-critical-operations-toggles/attribute-critical-operations-toggles.component';
+import { MailingListsComponent } from './settings-mailing-lists/mailing-lists.component';
+import { DataQuotasComponent } from './settings-data-quotas/data-quotas.component';
+import { LoaderDirective } from '@perun-web-apps/perun/directives';
+import { SettingsSSHKeysComponent } from './settings-ssh-keys/settings-ssh-keys.component';
+import { AddSshDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { ShowSshDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { RoleSearchSelectComponent } from './role-search-select/role-search-select.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -230,6 +238,14 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
     AttributeCriticalOperationsTogglesComponent,
+    LoaderDirective,
+    MailingListsComponent,
+    DataQuotasComponent,
+    SettingsSSHKeysComponent,
+    AddSshDialogComponent,
+    RemoveStringValueDialogComponent,
+    ShowSshDialogComponent,
+    RoleSearchSelectComponent,
   ],
   exports: [
     VosListComponent,
@@ -289,6 +305,14 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
     AttributeCriticalOperationsTogglesComponent,
+    LoaderDirective,
+    MailingListsComponent,
+    DataQuotasComponent,
+    SettingsSSHKeysComponent,
+    AddSshDialogComponent,
+    RemoveStringValueDialogComponent,
+    ShowSshDialogComponent,
+    RoleSearchSelectComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

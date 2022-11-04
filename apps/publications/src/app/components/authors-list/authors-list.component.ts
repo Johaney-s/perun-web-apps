@@ -1,19 +1,11 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { Author } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
   downloadData,
   getDataForExport,
-  parseAttribute,
+  findAttribute,
   parseFullName,
   parseName,
   TABLE_ITEMS_COUNT_OPTIONS,
@@ -22,6 +14,7 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { TableCheckbox } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-authors-list',
@@ -39,18 +32,16 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     'organization',
     'email',
     'numberOfPublications',
-    'add',
-    'remove',
   ];
   @Input() disableRouting = false;
   @Input() reloadTable: boolean;
-  @Input() selection: SelectionModel<Author>;
+  @Input() selection = new SelectionModel<Author>(true, []);
   @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-  @Output() addAuthor = new EventEmitter();
-  @Output() removeAuthor = new EventEmitter();
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   dataSource: MatTableDataSource<Author>;
   private sort: MatSort;
+
+  constructor(private tableCheckbox: TableCheckbox) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -64,9 +55,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       case 'name':
         return parseName(data);
       case 'organization':
-        return parseAttribute(data, 'organization');
+        return findAttribute(data.attributes, 'organization');
       case 'email':
-        return parseAttribute(data, 'preferredMail');
+        return findAttribute(data.attributes, 'preferredMail');
       case 'numberOfPublications':
         return data.authorships.length.toString();
       default:
@@ -81,9 +72,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       case 'name':
         return parseFullName(data);
       case 'organization':
-        return parseAttribute(data, 'organization');
+        return findAttribute(data.attributes, 'organization');
       case 'email':
-        return parseAttribute(data, 'preferredMail');
+        return findAttribute(data.attributes, 'preferredMail');
       case 'numberOfPublications':
         return data.authorships.length.toString();
       default:
@@ -98,9 +89,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       case 'name':
         return data.lastName ? data.lastName : data.firstName ?? '';
       case 'organization':
-        return parseAttribute(data, 'organization');
+        return findAttribute(data.attributes, 'organization');
       case 'email':
-        return parseAttribute(data, 'preferredMail');
+        return findAttribute(data.attributes, 'preferredMail');
       case 'numberOfPublications':
         return data.authorships.length.toString();
       default:
@@ -156,17 +147,23 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     return attribute;
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Author): string {
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected(): boolean {
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.dataSource);
   }
 
-  onAddClick(author: Author): void {
-    this.addAuthor.emit(author);
-  }
-
-  onRemoveClick(author: Author): void {
-    this.removeAuthor.emit(author);
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle(): void {
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   private setDataSource(): void {

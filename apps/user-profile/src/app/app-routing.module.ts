@@ -8,12 +8,10 @@ import { VosPageComponent } from './pages/vos-page/vos-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { SettingsAlternativePasswordsComponent } from './pages/settings-page/settings-alternative-passwords/settings-alternative-passwords.component';
 import { SettingsOverviewComponent } from './pages/settings-page/settings-overview/settings-overview.component';
-import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
-import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
 import { SettingsPreferredShellsComponent } from './pages/settings-page/settings-preferred-shells/settings-preferred-shells.component';
 import { SettingsPreferredUnixGroupNamesComponent } from './pages/settings-page/settings-preferred-unix-group-names/settings-preferred-unix-group-names.component';
 import { SettingsSambaPasswordComponent } from './pages/settings-page/settings-samba-password/settings-samba-password.component';
-import { SettingsSSHKeysComponent } from './pages/settings-page/settings-ssh-keys/settings-ssh-keys.component';
+import { SettingsSSHKeysComponent } from '@perun-web-apps/perun/components';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PasswordResetComponent } from '@perun-web-apps/perun/components';
@@ -26,6 +24,8 @@ import { ConsentsPageComponent } from './pages/consents-page/consents-page.compo
 import { ConsentRequestComponent } from './pages/consents-page/consent-request/consent-request.component';
 import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview/consents-preview.component';
 import { SettingsLocalAccountComponent } from './pages/settings-page/settings-local-account/settings-local-account.component';
+import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
+import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
 
 const routes: Routes = [
   {

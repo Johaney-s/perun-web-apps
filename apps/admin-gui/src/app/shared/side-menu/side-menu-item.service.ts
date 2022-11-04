@@ -340,9 +340,37 @@ export class SideMenuItemService {
           activatedRegex: '/myProfile/service-identities/\\d+/associated-users',
         },
         {
+          label: 'MENU_ITEMS.USER.MAILING_LISTS',
+          url: [`/myProfile/service-identities/${user.id}/mailing-lists`],
+          activatedRegex: '/myProfile/service-identities/\\d+/mailing-lists',
+        },
+        {
+          label: 'MENU_ITEMS.USER.DATA_QUOTAS',
+          url: [`/myProfile/service-identities/${user.id}/data-quotas`],
+          activatedRegex: '/myProfile/service-identities/\\d+/data-quotas',
+        },
+        {
           label: 'MENU_ITEMS.USER.AUTHENTICATION',
           url: [`/myProfile/service-identities/${user.id}/authentication`],
-          activatedRegex: '/myProfile/service-identities/\\d+/authentication',
+          activatedRegex: '/myProfile/service-identities/\\d+/authentication$',
+          children: [
+            {
+              label: 'MENU_ITEMS.USER.LOGINS',
+              url: [`/myProfile/service-identities/${user.id}/authentication/logins`],
+              activatedRegex: `/myProfile/service-identities/\\d+/authentication/logins`,
+            },
+            {
+              label: 'MENU_ITEMS.USER.CERTIFICATES',
+              url: [`/myProfile/service-identities/${user.id}/authentication/certificates`],
+              activatedRegex: `/myProfile/service-identities/\\d+/authentication/certificates`,
+            },
+            {
+              label: 'MENU_ITEMS.USER.SSH_KEYS',
+              url: [`/myProfile/service-identities/${user.id}/authentication/ssh-keys`],
+              activatedRegex: `/myProfile/service-identities/\\d+/authentication/ssh-keys`,
+            },
+          ],
+          showChildrenRegex: '/myProfile/service-identities/\\d+/authentication',
         },
       ],
       colorClass: 'user-bg-color',
@@ -883,7 +911,10 @@ export class SideMenuItemService {
     }
 
     //Applications
-    if (this.routePolicyService.canNavigate('groups-applications', group)) {
+    if (
+      group.name !== 'members' &&
+      this.routePolicyService.canNavigate('groups-applications', group)
+    ) {
       links.push({
         label: 'MENU_ITEMS.GROUP.APPLICATIONS',
         url: [`/organizations/${group.voId}/groups/${group.id}/applications`],
@@ -949,7 +980,10 @@ export class SideMenuItemService {
     }
 
     //SettingsApplicationForm
-    if (this.routePolicyService.canNavigate('groups-settings-applicationForm', group)) {
+    if (
+      group.name !== 'members' &&
+      this.routePolicyService.canNavigate('groups-settings-applicationForm', group)
+    ) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.APPLICATION_FORM',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/applicationForm`],
