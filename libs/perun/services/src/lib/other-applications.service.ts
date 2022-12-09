@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StoreService } from './store.service';
 import { Brand } from '@perun-web-apps/perun/openapi';
+import { AppType } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,14 @@ export class OtherApplicationsService {
         return brand;
       }
     }
-    return brands[0];
+    // return the default brand if NO brand domain is the same as the current domain
+    const defaultBrand = brands.filter((brand) => brand.name === 'default')[0];
+    if (defaultBrand) {
+      return defaultBrand;
+    } else {
+      // if the default brand doesn't exist, return the first brand in the list
+      return brands[0];
+    }
   }
 
   /**
@@ -40,10 +48,7 @@ export class OtherApplicationsService {
    * @param appType type of requested app (admin | profile | pwdReset)
    * @param login login namespace for pwd reset app
    */
-  getUrlForOtherApplication(
-    appType: 'admin' | 'profile' | 'pwdReset' | 'consolidator' | 'linker',
-    login?: string
-  ): string {
+  getUrlForOtherApplication(appType: AppType, login?: string): string {
     const currentUrl = window.location.href;
     const splittedUrl = currentUrl.split('/');
     const domain = splittedUrl[0] + '//' + splittedUrl[2]; // protocol with domain

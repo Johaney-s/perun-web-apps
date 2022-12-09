@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PerunNavComponent } from './perun-nav/perun-nav.component';
 import { RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -87,7 +86,6 @@ import { EntitylessAttributeKeysListComponent } from './components/entityless-at
 import { ServicesListComponent } from './components/services-list/services-list.component';
 import { RemoveVoDialogComponent } from './components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
-import { ShowNotificationHistoryDialogComponent } from './components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
 import { ExtSourcesListComponent } from './components/ext-sources-list/ext-sources-list.component';
 import { AddExtSourceDialogComponent } from './components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
 import { CreateRelationDialogComponent } from './components/dialogs/create-relation-dialog/create-relation-dialog.component';
@@ -182,6 +180,15 @@ import { AddRoleDialogComponent } from './components/dialogs/add-role-dialog/add
 import { AddUserRoleDialogComponent } from './components/dialogs/add-role-dialog/add-user-role-dialog/add-user-role-dialog.component';
 import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialog/add-group-role-dialog/add-group-role-dialog.component';
 import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
+import { AssignGroupsSponsoredMembersComponent } from './components/assign-groups-sponsored-members/assign-groups-sponsored-members-component';
+import { AddVoBanDialogComponent } from './components/dialogs/add-vo-ban-dialog/add-vo-ban-dialog.component';
+import { AddBanDialogComponent } from './components/dialogs/add-ban-dialog/add-ban-dialog.component';
+import { AddResourceBanDialogComponent } from './components/dialogs/add-resource-ban-dialog/add-resource-ban-dialog.component';
+import { AddFacilityBanDialogComponent } from './components/dialogs/add-facility-ban-dialog/add-facility-ban-dialog.component';
+import { UpdateBanDialogComponent } from './components/dialogs/update-ban-dialog/update-ban-dialog.component';
+import { UpdateVoBanDialogComponent } from './components/dialogs/update-vo-ban-dialog/update-vo-ban-dialog.component';
+import { UpdateResourceBanDialogComponent } from './components/dialogs/update-resource-ban-dialog/update-resource-ban-dialog.component';
+import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-facility-ban-dialog/update-facility-ban-dialog.component';
 
 @NgModule({
   imports: [
@@ -236,7 +243,6 @@ import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invi
   ],
   exports: [
     NgxMatSelectSearchModule,
-    PerunNavComponent,
     MatAutocompleteModule,
     MatInputModule,
     RouterModule,
@@ -317,9 +323,9 @@ import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invi
     AuditMessagesListComponent,
     ConsentHubsListComponent,
     RolesPageComponent,
+    AddVoBanDialogComponent,
   ],
   declarations: [
-    PerunNavComponent,
     SideMenuComponent,
     SideMenuItemComponent,
     CreateGroupDialogComponent,
@@ -369,7 +375,6 @@ import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invi
     ServicesListComponent,
     RemoveVoDialogComponent,
     CreateVoDialogComponent,
-    ShowNotificationHistoryDialogComponent,
     CreateRelationDialogComponent,
     RemoveRelationDialogComponent,
     RemoveGroupFromResourceDialogComponent,
@@ -418,6 +423,7 @@ import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invi
     EditUserDialogComponent,
     CreateSponsoredMemberDialogComponent,
     GenerateSponsoredMembersDialogComponent,
+    AssignGroupsSponsoredMembersComponent,
     SponsoredMembersListComponent,
     EditMemberSponsorsDialogComponent,
     CreateAttributeDialogComponent,
@@ -458,6 +464,14 @@ import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invi
     AddUserRoleDialogComponent,
     AddGroupRoleDialogComponent,
     BulkInviteMembersDialogComponent,
+    AddVoBanDialogComponent,
+    AddBanDialogComponent,
+    AddResourceBanDialogComponent,
+    AddFacilityBanDialogComponent,
+    UpdateBanDialogComponent,
+    UpdateVoBanDialogComponent,
+    UpdateResourceBanDialogComponent,
+    UpdateFacilityBanDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

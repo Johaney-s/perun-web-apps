@@ -52,6 +52,8 @@ import { ManageableEntitiesPipe } from './manageable-entities.pipe';
 import { UnassignedRolePipe } from './unassigned-role.pipe';
 import { PublicationTabLabelPipe } from './publication-tab-label.pipe';
 import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
+import { SelectApplicationLinkPipe } from './select-application-link.pipe';
+import { IsAuthorizedPipe } from './is-authorized.pipe';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
     UnassignedRolePipe,
     PublicationTabLabelPipe,
     AuthorsSeparatedByCommaPipe,
+    SelectApplicationLinkPipe,
+    IsAuthorizedPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -163,6 +167,8 @@ import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
     UnassignedRolePipe,
     PublicationTabLabelPipe,
     AuthorsSeparatedByCommaPipe,
+    SelectApplicationLinkPipe,
+    IsAuthorizedPipe,
   ],
   imports: [CommonModule],
 })

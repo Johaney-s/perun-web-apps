@@ -21,7 +21,8 @@ export interface InputInvitationsFromCsv {
   /**
    * id of VO to send invitation into
    */
-  voId?: number;
+  voId: number;
+
   /**
    * id of Group to send invitation into
    */

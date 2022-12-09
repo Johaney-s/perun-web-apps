@@ -83,7 +83,7 @@ export interface FooterColumn {
 
 interface Footer {
   columns: FooterColumn[];
-  copyrightItems: CopyrightItem[];
+  copyright_items: CopyrightItem[];
   github_releases?: string;
   github_backend_releases?: string;
 }
@@ -153,7 +153,6 @@ export interface PerunConfig {
   auto_auth_redirect?: boolean;
   supported_languages?: string[];
   enforce_consents?: boolean;
-  is_devel?: boolean;
   instance_favicon?: boolean;
   log_out_enabled?: boolean;
   header_label_en?: string;

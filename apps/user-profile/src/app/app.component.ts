@@ -17,6 +17,7 @@ import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { AppType } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-root',
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   isServiceAccess: boolean;
   contentHeight = 'calc(100vh - 84px)';
   headerLabel = this.store.getProperty('header_label_en');
+  otherApp = AppType.Admin;
 
   constructor(
     private store: StoreService,
@@ -63,14 +65,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
     sessionStorage.removeItem('baLogout');
-    if (this.isLoginScreenShown) {
+    if (this.isLoginScreenShown || this.isServiceAccess) {
       const preferredLanguage = this.preferredLangService.getPreferredLanguage(null);
       this.headerLabel = this.store.getProperty(
         preferredLanguage === 'en' ? 'header_label_en' : 'header_label_cs'
       );
-      return;
-    }
-    if (this.isServiceAccess) {
       return;
     }
     this.attributesManagerService

@@ -14,8 +14,9 @@
           <a
             attr.data-cy="{{member.user.firstName}}-firstName"
             class="member-link"
-            [routerLink]="['/organizations', vo.id, 'members', member.id]"
-            queryParamsHandling="merge">
+            [perunWebAppsMiddleClickRouterLink]="['/organizations', vo.id.toString(), 'members', member.id.toString()]"
+            (auxclick)="$event.preventDefault()"
+            [routerLink]="['/organizations', vo.id, 'members', member.id]">
             {{fullName}}
           </a>
           <span class="text-muted"> &nbsp;#{{member.id}} </span>
@@ -25,8 +26,9 @@
           <a
             class="member-link"
             *ngIf="isAuthorized"
-            [routerLink]="['/admin', 'users', member.userId]"
-            queryParamsHandling="merge">
+            [perunWebAppsMiddleClickRouterLink]="['/admin', 'users', member.userId.toString()]"
+            (auxclick)="$event.preventDefault()"
+            [routerLink]="['/admin', 'users', member.userId]">
             {{member.userId}}
           </a>
           <span *ngIf="!isAuthorized">{{member.userId}}</span>

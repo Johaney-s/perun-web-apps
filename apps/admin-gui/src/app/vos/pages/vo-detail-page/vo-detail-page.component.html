@@ -13,8 +13,10 @@
         <div class="page-title-headline d-flex align-items-center">
           <a
             class="vo-link"
+            [perunWebAppsMiddleClickRouterLink]="['/organizations', vo.id.toString()]"
+            (auxclick)="$event.preventDefault()"
             [routerLink]="['/organizations/', vo.id]"
-            queryParamsHandling="merge"
+            [queryParams]="route.snapshot.queryParams"
             data-cy="vo-name-link">
             {{vo.name}}
           </a>

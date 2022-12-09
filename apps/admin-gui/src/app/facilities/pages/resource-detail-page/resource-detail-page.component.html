@@ -11,7 +11,11 @@
       </mat-icon>
       <div class="page-title-block">
         <div class="page-title-headline d-flex align-items-center">
-          <a [routerLink]="[baseUrl]" class="resource-link" queryParamsHandling="merge">
+          <a
+            [perunWebAppsMiddleClickRouterLink]="[baseUrl]"
+            (auxclick)="$event.preventDefault()"
+            [routerLink]="[baseUrl]"
+            class="resource-link">
             {{resource.name}}
           </a>
           <span class="text-muted"> &nbsp;#{{resource.id}} </span>
@@ -32,8 +36,9 @@
           <a
             *ngIf="voLinkAuth"
             attr.data-cy="{{resource.vo.name}}"
+            [perunWebAppsMiddleClickRouterLink]="['/organizations', resource.vo.id.toString()]"
+            (auxclick)="$event.preventDefault()"
             [routerLink]="['/organizations', resource.vo.id]"
-            queryParamsHandling="merge"
             class="resource-link"
             >{{resource.vo.name}}</a
           >
@@ -45,7 +50,8 @@
             class="resource-link"
             *ngIf="facilityLinkAuth"
             attr.data-cy="{{resource.facility.name}}"
-            queryParamsHandling="merge"
+            [perunWebAppsMiddleClickRouterLink]="['/facilities', resource.facilityId.toString()]"
+            (auxclick)="$event.preventDefault()"
             [routerLink]="['/facilities', resource.facilityId]"
             >{{resource.facility.name}}</a
           >
