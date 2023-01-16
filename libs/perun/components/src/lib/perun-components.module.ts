@@ -51,8 +51,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { ServicesStatusListComponent } from './services-status-list/services-status-list.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
-import { ForceRouterLinkDirective } from '@perun-web-apps/perun/directives';
-import { RedirectPageComponent } from './redirect-page/redirect-page.component';
 import { VoSearchSelectComponent } from './vo-search-select/vo-search-select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -113,6 +111,11 @@ import { ShowNotificationHistoryDialogComponent } from '@perun-web-apps/perun/di
 import { QueryParamsHandlingDirective } from '@perun-web-apps/perun/directives';
 import { BanSpecificationComponent } from './ban-specification/ban-specification.component';
 import { BanOnEntityListComponent } from './ban-on-entity-list/ban-on-entity-list.component';
+import { MemberOverviewMembershipComponent } from './member-overview-membership/member-overview-membership.component';
+import { ChangeMemberStatusOrExpirationDialogComponent } from './change-member-status-or-expiration-dialog/change-member-status-or-expiration-dialog.component';
+import { MemberOverviewGroupsComponent } from './member-overview-groups/member-overview-groups.component';
+import { DeselectButtonComponent } from './deselect-button/deselect-button.component';
+import { AuditLogSearchSelectComponent } from './audit-log-search-select/audit-log-search-select.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -203,8 +206,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     PasswordResetComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
-    ForceRouterLinkDirective,
-    RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
     TaskResultsListComponent,
@@ -258,6 +259,11 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     QueryParamsHandlingDirective,
     BanSpecificationComponent,
     BanOnEntityListComponent,
+    ChangeMemberStatusOrExpirationDialogComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
+    DeselectButtonComponent,
+    AuditLogSearchSelectComponent,
   ],
   exports: [
     VosListComponent,
@@ -280,8 +286,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     PasswordResetComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
-    ForceRouterLinkDirective,
-    RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
     TaskResultsListComponent,
@@ -330,6 +334,11 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     QueryParamsHandlingDirective,
     BanSpecificationComponent,
     BanOnEntityListComponent,
+    ChangeMemberStatusOrExpirationDialogComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
+    DeselectButtonComponent,
+    AuditLogSearchSelectComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

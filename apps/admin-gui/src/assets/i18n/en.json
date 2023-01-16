@@ -401,7 +401,7 @@
         "CLEAR": "Clear form",
         "CLEAR_TOOLTIP": "Removes all form items",
         "TYPES": {
-          "HEADER": "Header",
+          "HEADING": "Header",
           "SUBMIT_BUTTON": "Submit button",
           "HTML_COMMENT": "Custom HTML text",
           "TEXTFIELD": "Input text field",
@@ -432,7 +432,7 @@
           "IF_EMPTY": "If empty (self or other item)"
         },
         "WIDGET_DESCRIPTION": {
-          "HEADER": "Item is used to display customizable heading of the form. Can have any HTML content.",
+          "HEADING": "Item is used to display customizable heading of the form. Can have any HTML content.",
           "SUBMIT_BUTTON": "Button used to submit the form with a custom label. All other form items are checked on valid input before submission. If it fails, form is not sent.",
           "HTML_COMMENT": "Item is used to display custom HTML content anywhere on the form. Useful for explanation descriptions, dividing parts of form, etc.",
           "TEXTFIELD": "Editable text field useful to gather short text input, e.g. name, phone.",
@@ -584,6 +584,7 @@
     "APPLICATION": {
       "TITLE": "Application",
       "FILTER": "Filter",
+      "SET_COLUMN_SETTINGS": "Configure column settings",
       "SELECTION_ALL": "All",
       "SELECTION_WFMV": "Waiting for mail verification",
       "SELECTION_SUBMITTED": "Submitted",
@@ -591,6 +592,7 @@
       "SELECTION_APPROVED": "Approved",
       "SELECTION_REJECTED": "Rejected",
       "SHOW_GROUP_APPLICATIONS": "Show group applications",
+      "COLUMNS_TOOLTIP": "Detailed application view cannot be customized.",
       "NO_APPLICATION_FOUND": "No applications matching search criteria found.",
       "SHOW_ALL_DETAILS": "Show more details",
       "SHOW_LESS_DETAILS": "Show less details",
@@ -664,6 +666,8 @@
       "ADD_MEMBER": "Add",
       "ADD_MEMBER_DISABLED": "Manual adding of members is blocked for this group.",
       "REMOVE_MEMBERS": "Remove",
+      "COPY_MEMBERS": "Copy",
+      "COPY_MEMBERS_DISABLED": "There aren't any direct members available to copy.",
       "SEARCH_DESCRIPTION": "Search by name, login, email or UUID",
       "LIST_ALL": "List all members",
       "INVITE": "Invite",
@@ -780,7 +784,8 @@
     "MODIFIED_AT": "Modified at",
     "USER": "User",
     "CREATED_BY": "Created by",
-    "VO_NAME": "Organization name"
+    "VO_NAME": "Organization name",
+    "CONFIGURE": "Configure applications view"
   },
   "MEMBER_DETAIL": {
     "ENTITY": "Member",
@@ -1175,6 +1180,19 @@
       "NAME_COLUMN": "Name",
       "ERROR_COLUMN": "Error"
     },
+    "COPY_MEMBERS": {
+      "TITLE": "Copy members",
+      "DISABLED_COPY_SELECTION": "No members selected",
+      "COPY_SELECTION": "Copy selected members of this group",
+      "COPY_ALL": "Copy all direct members of this group",
+      "SELECT_GROUPS": "Select groups to which members will be copied",
+      "ATTRIBUTES_WARN": "Member-group attributes of the members will not be copied!",
+      "CANCEL": "Cancel",
+      "COPY": "Copy",
+      "SUCCESS": "Members were successfully copied.",
+      "ERROR": "There was an error copying members, the operation was cancelled and none of the members were copied."
+
+    },
     "ADD_GROUPS": {
       "TITLE": "Add group",
       "SEARCH": "Search",
@@ -1240,6 +1258,16 @@
       "SUBMIT": "Reject",
       "CANCEL": "Cancel",
       "SUCCESS": "Application was rejected"
+    },
+    "APPLICATIONS_LIST_COLUMNS_CHANGE":  {
+      "TITLE": "Change applications view preferences",
+      "DEFAULT_TEXT": "The default setting of the columns is: 'createdAt', 'type', 'state', 'createdBy', 'modifiedBy' ",
+      "FILTER_COLUMNS": "Displayed columns",
+      "WARN": "Changes to displayed columns will be saved for everyone that views applications in this organization/group!",
+      "CANCEL": "Cancel",
+      "CONFIRM": "Confirm",
+      "DEFAULT": "Reset default settings",
+      "SUCCESS": "Displayed columns were successfully updated"
     },
     "UPDATE_APPLICATION_FORM": {
       "TITLE": "Change application form settings",
@@ -1550,6 +1578,7 @@
       "CHANGE_NO_VALID_TO_DISABLED": "DISABLED status means that the member is archived and is not allowed to any services. Member can't enable/extend membership by himself.",
       "SUCCESS": "Member status was changed",
       "CANCEL": "Cancel",
+      "BACK": "Back",
       "CHANGE_STATUS": "Change status",
       "CHANGE_STATUS_WITH_EXPIRATION": "Change status and set expiration"
     },
@@ -1842,6 +1871,7 @@
       "EXPIRATION_NEVER": "Never expire",
       "WRONG_FORMAT": "The date has to be in format yyyy-mm-dd",
       "CANCEL": "Cancel",
+      "BACK": "Back",
       "SAVE": "Save",
       "SUCCESS": "Expiration successfully changed",
       "SAVE_HINT": "You don't have permission to change the expiration date.",
@@ -1949,6 +1979,14 @@
       "CANCEL": "Cancel",
       "SUBMIT": "Submit",
       "SUCCESS": "Application form item data edited successfully"
+    },
+    "CONFIGURE_APP_VIEW": {
+      "TITLE": "Configure applications view: ",
+      "DESCRIPTION": "You can configure which basic information will be shown in the application view. The settings can be reset later.",
+      "SAVE": "Save",
+      "CANCEL": "Cancel",
+      "RESET": "Reset",
+      "SAVED": "Configuration successfully updated"
     },
     "CREATE_SPONSORED_MEMBER": {
       "TITLE": "Create sponsored member",
@@ -2296,7 +2334,7 @@
     "NO_MEMBERS_ALERT": "No members present",
     "NO_FILTER_RESULTS_ALERT": "No members are matching your query",
     "INDIRECT_MEMBER": "Indirect member",
-    "CHECKBOX_TOOLTIP_INDIRECT": "Indirect members cannot be removed",
+    "CHECKBOX_TOOLTIP_INDIRECT": "Indirect members cannot be removed or copied",
     "CHECKBOX_TOOLTIP_UNALTERABLE": "Members from member organizations cannot be directly removed",
     "STATUS_TOOLTIP_INDIRECT": "Member status from member organization cannot be directly changed",
     "STATUS_TOOLTIP_GROUP_INDIRECT": "Indirect member status cannot be changed",
@@ -2339,6 +2377,7 @@
       "TITLE": "Attribute definitions",
       "TABLE_ATTR_ID": "Id",
       "TABLE_ATTR_FRIENDLY_NAME": "Friendly name",
+      "TABLE_ATTR_DISPLAY_NAME": "Display name",
       "TABLE_ATTR_ENTITY": "Entity",
       "TABLE_ATTR_DEF": "Def",
       "TABLE_ATTR_TYPE": "Type",
@@ -2413,7 +2452,8 @@
       "FILTER": "Filter"
     },
     "AUDIT_LOG": {
-      "TITLE": "Audit log"
+      "TITLE": "Audit log",
+      "SEARCH_DESCRIPTION": "Search by event name"
     },
     "CONSENT_HUBS": {
       "TITLE": "Consent hubs",
@@ -2686,7 +2726,8 @@
     "TITLE": "Roles",
     "ADD": "Add role",
     "REMOVE": "Remove role",
-    "REMOVE_DESC": "Following role will be removed",
+    "REMOVE_DESC": "{{role}} role will be removed.",
+    "REMOVE_DESC_WITH_OBJECTS": "{{role}} role will be removed from {{count}} following objects:",
     "REMOVE_SUCCESS": "Role {{ role}} was successfully removed",
     "REMOVE_DISABLED_TOOLTIP": "You don't have permission to remove selected role",
     "NO_ROLES": "No roles found",
@@ -3023,7 +3064,7 @@
         "SESSION_EXPIRATION": {
           "TITLE": "Session expiration",
           "DESCRIPTION": "Your session has expired. Please sign in to continue.",
-          "SIGN_IN": "Sign in"
+          "SIGN_IN": "Proceed"
         },
         "RECENTLY_VIEWED_ICON": {
           "RECENT": "Recently viewed"
@@ -3197,6 +3238,9 @@
           "DESCRIPTION_HEADER": "Description",
           "EXPIRATION_HEADER": "Expiration",
           "NO_BANS": "No bans found."
+        },
+        "UNIVERSAL_OBJECTS_LIST": {
+          "FILTER": "Filter objects by their properties"
         }
       },
       "ORGANIZATIONS": {

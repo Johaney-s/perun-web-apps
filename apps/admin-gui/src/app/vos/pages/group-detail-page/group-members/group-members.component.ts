@@ -25,6 +25,7 @@ import { UntypedFormControl } from '@angular/forms';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { GroupAddMemberDialogComponent } from '../../../components/group-add-member-dialog/group-add-member-dialog.component';
 import { BulkInviteMembersDialogComponent } from '../../../../shared/components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
+import { CopyMembersDialogComponent } from '../../../../shared/components/dialogs/copy-members-dialog/copy-members-dialog-component';
 
 @Component({
   selector: 'app-group-members',
@@ -55,6 +56,8 @@ export class GroupMembersComponent implements OnInit {
   addAuth: boolean;
   removeAuth: boolean;
   inviteAuth: boolean;
+  copyAuth: boolean;
+  copyDisabled = false;
   blockManualMemberAdding: boolean;
   displayedColumns = [
     'checkbox',
@@ -103,6 +106,7 @@ export class GroupMembersComponent implements OnInit {
     this.group = this.entityStorageService.getEntity();
     this.setAuthRights();
     void this.isManualAddingBlocked(this.group.voId).then(() => this.loadPage(this.group.id));
+    this.isCopyMembersDisabled();
   }
 
   loadPage(groupId: number): void {
@@ -129,6 +133,10 @@ export class GroupMembersComponent implements OnInit {
       'group-sendInvitation_Vo_Group_String_String_String_policy',
       [this.group]
     );
+    this.copyAuth = this.guiAuthResolver.isAuthorized(
+      'source-copyMembers_Group_List<Group>_List<Member>_boolean_policy',
+      [this.group]
+    );
   }
 
   onSearchByString(filter: string): void {
@@ -150,6 +158,7 @@ export class GroupMembersComponent implements OnInit {
       if (wereMembersAdded) {
         this.selection.clear();
         this.updateTable = !this.updateTable;
+        this.isCopyMembersDisabled();
       }
     });
   }
@@ -169,6 +178,7 @@ export class GroupMembersComponent implements OnInit {
       if (wereMembersDeleted) {
         this.selection.clear();
         this.updateTable = !this.updateTable;
+        this.isCopyMembersDisabled();
       }
     });
   }
@@ -191,6 +201,25 @@ export class GroupMembersComponent implements OnInit {
     config.data = { voId: this.group.voId, groupId: this.group.id, theme: 'group-theme' };
 
     this.dialog.open(BulkInviteMembersDialogComponent, config);
+  }
+
+  onCopyMembers(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '650px';
+    config.data = {
+      voId: this.group.voId,
+      groupId: this.group.id,
+      theme: 'group-theme',
+      members: this.selection.selected,
+    };
+
+    const dialogRef = this.dialog.open(CopyMembersDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((success) => {
+      if (success) {
+        this.selection.clear();
+      }
+    });
   }
 
   displaySelectedStatuses(): string {
@@ -239,6 +268,18 @@ export class GroupMembersComponent implements OnInit {
     });
   }
 
+  isCopyMembersDisabled(): void {
+    this.copyDisabled = false;
+    this.groupService.getGroupDirectMembersCount(this.group.id).subscribe({
+      next: (count) => {
+        this.copyDisabled = count === 0;
+      },
+      error: () => {
+        this.copyDisabled = true;
+      },
+    });
+  }
+
   changeVoStatuses(): void {
     this.selection.clear();
     this.selectedStatuses = this.statuses.value as VoMemberStatuses[];
@@ -252,5 +293,6 @@ export class GroupMembersComponent implements OnInit {
   refreshTable(): void {
     this.selection.clear();
     this.updateTable = !this.updateTable;
+    this.isCopyMembersDisabled();
   }
 }

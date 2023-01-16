@@ -115,7 +115,8 @@
         <td *matCellDef="let group" mat-cell>
           <i
             *ngIf="{status: group.attributes | findAttribute: 'groupStatus'} as groupStatus"
-            class="material-icons {{groupStatus.status | groupStatusIconColor}}"
+            (click)="$event.stopPropagation()"
+            class="material-icons {{groupStatus.status | groupStatusIconColor}} cursor-default"
             matTooltip="{{groupStatus.status}}"
             matTooltipClass="status-tooltip"
             matTooltipPosition="left">
@@ -169,7 +170,7 @@
         [class.cursor-pointer]="!disableRouting && !groupsToDisableRouting.has(group.id)"
         [class.disable-outline]="disableRouting || disabledRouting || groupsToDisableRouting.has(group.id)"
         [perunWebAppsMiddleClickRouterLink]="(disableRouting || disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
-        [perunWebAppsForceRouterLink]="(disableRouting || disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
+        [routerLink]="(disableRouting || disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>
