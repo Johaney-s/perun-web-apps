@@ -10,7 +10,7 @@ import {
   TABLE_VO_APPLICATIONS_DETAILED,
   TABLE_VO_APPLICATIONS_NORMAL,
 } from '@perun-web-apps/config/table-config';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { EntityStorageService } from '@perun-web-apps/perun/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -27,7 +27,6 @@ export class VoApplicationsComponent implements OnInit {
   static id = 'VoApplicationsComponent';
 
   @HostBinding('class.router-component') true;
-  state = 'pending';
   currentStates: AppState[] = ['NEW', 'VERIFIED'];
   vo: Vo;
   simplePrependColumns = ['id'];
@@ -53,8 +52,8 @@ export class VoApplicationsComponent implements OnInit {
   showAllDetails = false;
   detailTableId = TABLE_VO_APPLICATIONS_DETAILED;
   tableId = TABLE_VO_APPLICATIONS_NORMAL;
-  startDate: UntypedFormControl;
-  endDate: UntypedFormControl;
+  startDate: FormControl<Date | string>;
+  endDate: FormControl<Date | string>;
   showGroupApps = false;
   refresh = false;
   loading = true;
@@ -70,8 +69,10 @@ export class VoApplicationsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
-    this.startDate = new UntypedFormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
-    this.endDate = new UntypedFormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
+    this.startDate = new FormControl<Date | string>(
+      formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB')
+    );
+    this.endDate = new FormControl<Date | string>(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
     this.attributeManager
       .getIdpAttributeDefinitions()
       .subscribe((attrDefs: AttributeDefinition[]) => {
@@ -82,38 +83,6 @@ export class VoApplicationsComponent implements OnInit {
         });
       });
     this.loadViewConfiguration();
-  }
-
-  select(): void {
-    switch (this.state) {
-      case 'approved': {
-        this.currentStates = ['APPROVED'];
-        break;
-      }
-      case 'rejected': {
-        this.currentStates = ['REJECTED'];
-        break;
-      }
-      case 'wfmv': {
-        this.currentStates = ['NEW'];
-        break;
-      }
-      case 'submited': {
-        this.currentStates = ['VERIFIED'];
-        break;
-      }
-      case 'pending': {
-        this.currentStates = ['NEW', 'VERIFIED'];
-        break;
-      }
-      case 'all': {
-        this.currentStates = null;
-        break;
-      }
-      default: {
-        break;
-      }
-    }
   }
 
   yearAgo(): Date {
